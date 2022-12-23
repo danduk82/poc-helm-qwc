@@ -1,0 +1,11 @@
+# Default values for mapserver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nfs:
+  data:
+    pvcname: pvc-qwc-data
+    pvname: pv-qwc-data
+    server: 192.168.1.146
+    path: /home/aborghi/Documents/support/sersa/nfs/volumes
+    storage: 10Gi
