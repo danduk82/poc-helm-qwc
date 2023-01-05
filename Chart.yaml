@@ -28,5 +28,5 @@ dependencies:
   #   alias: qwcservices
   - name: qwc
     repository: https://camptocamp.github.io/helm-qwc-services
-    version: 0.1.8
+    version: 0.1.10
     alias: qwcservices
