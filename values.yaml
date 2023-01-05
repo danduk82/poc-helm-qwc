@@ -6,7 +6,7 @@ nfs:
   data:
     pvcname: pvc-qwc-data
     pvname: pv-qwc-data
-    server: 10.236.1.22
+    server: 10.60.12.122
     path: /home/aborghi/Documents/support/sersa/nfs/volumes
     storage: 10Gi
 
@@ -21,7 +21,7 @@ qwcservices:
     pg:
       conf: |
         [qwc_configdb]
-        host=10.236.1.22
+        host=10.60.12.122
         port=5439
         dbname=qwc_demo
         user=qwc_admin
@@ -29,7 +29,7 @@ qwcservices:
         sslmode=disable
 
         [qwc_geodb]
-        host=10.236.1.22
+        host=10.60.12.122
         port=5439
         dbname=qwc_demo
         user=qwc_service
@@ -38,13 +38,13 @@ qwcservices:
   qgis:
     ingress:
       enabled: false
-    securityContext: &qgissecurity
-      runAsNonRoot: true
-      runAsUser: 1012
-      runAsGroup: 0
-    podSecurityContext:
-      <<: *qgissecurity
-      fsGroup: 1012
+    # securityContext: &qgissecurity
+    #   runAsNonRoot: true
+    #   runAsUser: 1012
+    #   runAsGroup: 0
+    # podSecurityContext:
+    #   <<: *qgissecurity
+    #   fsGroup: 1012
 
   qwc:
     ingress:
