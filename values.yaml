@@ -38,7 +38,7 @@ initContainers: &initContainers
       - 'cp -r /qwc/config/ /srv/qwc_service/config/'
     image:
       repository: danduk82/qwcconfig
-      tag: b
+      tag: qgis-stuff
     volumeMounts:
       <<: *common-volume-mounts
     env:
@@ -77,7 +77,7 @@ qwcservices:
               - 'cp -r /qwc/qgs-resources/ /data'
             image:
               repository: danduk82/qwcconfig
-              tag: b
+              tag: qgis-stuff
             volumeMounts: &qgis-mounts
               /data:
                 name: v-qwc-data
