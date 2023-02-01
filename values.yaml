@@ -12,6 +12,10 @@ nfs:
   #   storage: 10Gi
 
 volumes: &common-volumes
+  # v-qwc-data:
+  #   persistentVolumeClaim:
+  #     claimName: pvc-qwc-data
+  #     readOnly: true
   v-qwc-data:
     emptyDir:
       sizeLimit: 500Mi
@@ -34,7 +38,7 @@ initContainers: &initContainers
       - 'cp -r /qwc/config/ /srv/qwc_service/config/'
     image:
       repository: danduk82/qwcconfig
-      tag: latest
+      tag: b
     volumeMounts:
       <<: *common-volume-mounts
     env:
@@ -73,7 +77,7 @@ qwcservices:
               - 'cp -r /qwc/qgs-resources/ /data'
             image:
               repository: danduk82/qwcconfig
-              tag: latest
+              tag: b
             volumeMounts: &qgis-mounts
               /data:
                 name: v-qwc-data
