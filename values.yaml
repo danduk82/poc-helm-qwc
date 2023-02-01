@@ -3,22 +3,18 @@
 # Declare variables to be passed into your templates.
 
 nfs:
-  {}
-  # data:
-  #   pvcname: pvc-qwc-data
-  #   pvname: pv-qwc-data
-  #   server: 10.60.12.122
-  #   path: /home/aborghi/Documents/support/sersa/nfs/volumes
-  #   storage: 10Gi
+  data:
+    pvcname: pvc-qwc-data
+    pvname: pv-qwc-data
+    server: 192.168.1.129
+    path: /home/aborghi/Documents/support/sersa/nfs/volumes
+    storage: 10Gi
 
 volumes: &common-volumes
-  # v-qwc-data:
-  #   persistentVolumeClaim:
-  #     claimName: pvc-qwc-data
-  #     readOnly: true
   v-qwc-data:
-    emptyDir:
-      sizeLimit: 500Mi
+    persistentVolumeClaim:
+      claimName: pvc-qwc-data
+      readOnly: true
 
 volumeMounts: &common-volume-mounts
   /srv/qwc_service/config:
@@ -69,24 +65,11 @@ qwcservices:
         volumes:
           <<: *common-volumes
 
-        initContainers:
-          config:
-            command:
-              - '/bin/sh'
-              - '-c'
-              - 'cp -r /qwc/qgs-resources/ /data'
-            image:
-              repository: danduk82/qwcconfig
-              tag: b
-            volumeMounts: &qgis-mounts
-              /data:
-                name: v-qwc-data
-            env:
-              <<: *idstuff
         containers:
           qgis:
             volumeMounts:
-              <<: *qgis-mounts
+              /data:
+                name: v-qwc-data
     ingress:
       enabled: false
     # securityContext: &qgissecurity
@@ -121,8 +104,6 @@ qwcservices:
       auth-service:
         volumes:
           <<: *common-volumes
-        initContainers:
-          <<: *initContainers
         containers:
           uwsgi:
             volumeMounts:
@@ -132,8 +113,6 @@ qwcservices:
       config-service:
         enabled: false
       data-service:
-        initContainers:
-          <<: *initContainers
         volumes:
           <<: *common-volumes
         containers:
@@ -143,8 +122,6 @@ qwcservices:
             env:
               <<: *idstuff
       document-service:
-        initContainers:
-          <<: *initContainers
         volumes:
           <<: *common-volumes
         containers:
@@ -154,8 +131,6 @@ qwcservices:
             env:
               <<: *idstuff
       elevation-service:
-        initContainers:
-          <<: *initContainers
         volumes:
           <<: *common-volumes
         containers:
@@ -165,8 +140,6 @@ qwcservices:
             env:
               <<: *idstuff
       feature-info-service:
-        initContainers:
-          <<: *initContainers
         volumes:
           <<: *common-volumes
         containers:
@@ -176,8 +149,6 @@ qwcservices:
             env:
               <<: *idstuff
       fulltext-search-service:
-        initContainers:
-          <<: *initContainers
         volumes:
           <<: *common-volumes
         containers:
@@ -187,8 +158,6 @@ qwcservices:
             env:
               <<: *idstuff
       mapinfo-service:
-        initContainers:
-          <<: *initContainers
         volumes:
           <<: *common-volumes
         containers:
@@ -198,8 +167,6 @@ qwcservices:
             env:
               <<: *idstuff
       map-viewer:
-        initContainers:
-          <<: *initContainers
         volumes:
           <<: *common-volumes
         containers:
@@ -209,8 +176,6 @@ qwcservices:
             env:
               <<: *idstuff
       ogc-service:
-        initContainers:
-          <<: *initContainers
         volumes:
           <<: *common-volumes
         containers:
@@ -220,8 +185,6 @@ qwcservices:
             env:
               <<: *idstuff
       permalink-service:
-        initContainers:
-          <<: *initContainers
         volumes:
           <<: *common-volumes
         containers:
